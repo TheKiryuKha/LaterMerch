@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,6 +21,20 @@ return new class extends Migration
             $table->string('price');
             $table->text('description');
             $table->timestamps();
+        });
+
+        Schema::create('product_size', function (Blueprint $table) {
+            $table->foreignIdFor(Product::class)
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreignIdFor(Size::class)
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->unique(['product_id', 'size_id']);
         });
     }
 };

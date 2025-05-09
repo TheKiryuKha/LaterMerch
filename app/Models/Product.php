@@ -6,9 +6,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
+
+    /**
+     * *
+     * @return HasMany<Image, $this>
+     */
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    /**
+     * Summary of sizes
+     *
+     * @return BelongsToMany<Size, $this, \Illuminate\Database\Eloquent\Relations\Pivot>
+     */
+    public function sizes(): BelongsToMany
+    {
+        return $this->belongsToMany(Size::class);
+    }
 }
