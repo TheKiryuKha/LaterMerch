@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\DTO;
 
-use Illuminate\Http\UploadedFile;
 use App\Models\Size;
+use Illuminate\Http\UploadedFile;
 
 final readonly class ProductDTO
 {
@@ -13,9 +13,9 @@ final readonly class ProductDTO
         public string $title,
         public string $price,
         public string $description,
-        /** @var array<UploadedFile> */
-        public array $images = [],
         /** @var array<Size> */
-        public array $sizes
+        public array $sizes,
+        /** @var array<UploadedFile> */
+        public array $images = []
     ) {}
 }

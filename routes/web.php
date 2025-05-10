@@ -8,4 +8,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-require __DIR__."/groups/product.php";
+require __DIR__.'/groups/product.php';

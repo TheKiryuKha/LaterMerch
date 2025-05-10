@@ -15,7 +15,7 @@ beforeEach(function () {
 test('admin can create product', function () {
     $admin = User::factory()->admin()->create();
     $sizes = Size::factory()->count(3)->create();
-    $image1 = UploadedFile::fake()->image('test-image1.png');
+    $image = UploadedFile::fake()->image('test-image1.png');
 
     $response = $this->actingAs($admin)
         ->from(route('products.index'))
@@ -23,12 +23,12 @@ test('admin can create product', function () {
             'title' => 'Test',
             'price' => '100$',
             'description' => 'Test Desc',
-            'images' => [$image1],
+            'images' => [$image],
             'sizes' => [
                 $sizes[0]->id,
                 $sizes[1]->id,
                 $sizes[2]->id,
-            ]
+            ],
         ]);
 
     $response->assertredirectToRoute('products.index');
@@ -43,4 +43,4 @@ test('admin can create product', function () {
         ->images->toHaveCount(1);
 
     expect(Product::first()->sizes)->toHaveCount(3);
-})->only();
+});

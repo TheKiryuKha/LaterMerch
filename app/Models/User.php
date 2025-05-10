@@ -35,7 +35,11 @@ final class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    
+
+    protected $casts = [
+        'role' => UserRole::class,
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -46,7 +50,6 @@ final class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'role' => UserRole::class
         ];
     }
 }

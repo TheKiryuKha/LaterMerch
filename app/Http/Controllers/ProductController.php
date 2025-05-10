@@ -1,49 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Models\Image;
-use App\Models\Product;
+use App\Actions\CreateProduct;
+use App\Http\Requests\ProductRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 
-class ProductController
+final class ProductController
 {
     public function index(): Response
     {
         return response(status: 200);
     }
 
-    public function store()
+    public function store(ProductRequest $request, CreateProduct $action): RedirectResponse
     {
-        $data = request()->validate([
-            'title' => ['required', 'string', 'min:3', 'max:100'],
-            'price' => ['required', 'string', 'min:3', 'max:100'],
-            'description' => ['required', 'string', 'min:3', 'max:255'],
-            'images' => ['required', 'array'],
-            'images.*' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'sizes' => ['sometimes', 'array'],
-            'sizes.*' => ['required', 'exists:sizes,id']
-        ]);
-
-        $images = $data['images'];
-        unset($data['images']);
-        $sizes = $data['sizes'];
-        unset($data['sizes']);
-
-        $product = Product::create($data);
-
-        foreach($images as $image){
-            $name = uniqid() . '.' . $image->getClientOriginalExtension();
-            
-            $image->storeAs('images', $name, 'public');
-
-            Image::create([
-                'name' => $name,
-                'product_id' => $product->id
-            ]);
-        }
-
-        $product->sizes()->sync($sizes);
+        $product = $action->handle($request->validated());
 
         return to_route('products.index');
     }
