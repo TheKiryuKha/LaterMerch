@@ -8,14 +8,16 @@ use App\DTO\ProductDTO;
 use App\Models\Product;
 use DB;
 
-final class CreateProduct
+final class EditProduct
 {
-    public function __construct(private SaveImages $action) {}
+    public function __construct(
+        private UpdateImages $action
+    ) {}
 
-    public function handle(ProductDTO $dto): Product
+    public function handle(Product $product, ProductDTO $dto): bool
     {
-        return DB::transaction(function () use ($dto) {
-            $product = Product::create([
+        return DB::transaction(function () use ($product, $dto) {
+            $product->update([
                 'title' => $dto->title,
                 'price' => $dto->price,
                 'description' => $dto->description,
@@ -25,7 +27,7 @@ final class CreateProduct
 
             $product->sizes()->sync($dto->sizes);
 
-            return $product;
+            return true;
         });
     }
 }

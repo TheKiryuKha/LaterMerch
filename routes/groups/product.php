@@ -14,4 +14,8 @@ Route::prefix('admin_panel')->controller(ProductController::class)->group(functi
     Route::post('/products', 'store')
         ->can('is_Admin', Product::class)
         ->name('products.store');
+
+    Route::patch('/products/{product}', 'update')
+        ->can('is_Admin', Product::class)
+        ->name('products.update');
 });

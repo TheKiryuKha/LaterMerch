@@ -40,7 +40,6 @@ test('admin can create product', function () {
         ->title->toBe('Test')
         ->price->toBe('100$')
         ->description->toBe('Test Desc')
-        ->images->toHaveCount(1);
-
-    expect(Product::first()->sizes)->toHaveCount(3);
+        ->images->toHaveCount(1)
+        ->sizes->toHaveCount(3);
 });
