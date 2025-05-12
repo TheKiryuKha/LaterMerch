@@ -41,7 +41,7 @@ test('admin edits product', function () {
 
     foreach ($oldImage as $image) {
         Storage::disk('public')->assertMissing('images/'.$image->name);
-        $this->assertDatabaseMissing('images', ['id' => $image->name]);
+        $this->assertDatabaseMissing('images', ['id' => $image->id]);
     }
 
     Storage::disk('public')

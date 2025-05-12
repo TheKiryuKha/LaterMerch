@@ -18,4 +18,8 @@ Route::prefix('admin_panel')->controller(ProductController::class)->group(functi
     Route::patch('/products/{product}', 'update')
         ->can('is_Admin', Product::class)
         ->name('products.update');
+
+    Route::delete('/products/{product}', 'destroy')
+        ->can('is_Admin', Product::class)
+        ->name('products.destroy');
 });
