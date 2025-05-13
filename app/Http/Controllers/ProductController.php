@@ -19,7 +19,7 @@ final class ProductController
         $products = Product::with('sizes', 'images')->get();
 
         return view('admin-panel', [
-            'products' => $products
+            'products' => $products,
         ]);
     }
 
