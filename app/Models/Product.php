@@ -24,7 +24,6 @@ final class Product extends Model
     }
 
     /**
-     * Summary of sizes
      *
      * @return BelongsToMany<Size, $this, \Illuminate\Database\Eloquent\Relations\Pivot>
      */

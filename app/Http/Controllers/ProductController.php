@@ -11,17 +11,18 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 final class ProductController
 {
-    public function index(): Response
+    public function index(): View
     {
-        return response(status: 200);
+        return view('admin-panel');
     }
 
     public function store(ProductRequest $request, CreateProduct $action): RedirectResponse
     {
-        $product = $action->handle($request->validated());
+        $action->handle($request->validated());
 
         return to_route('products.index');
     }
