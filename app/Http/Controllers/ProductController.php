@@ -16,7 +16,11 @@ final class ProductController
 {
     public function index(): View
     {
-        return view('admin-panel');
+        $products = Product::with('sizes', 'images')->get();
+
+        return view('admin-panel', [
+            'products' => $products
+        ]);
     }
 
     public function store(ProductRequest $request, CreateProduct $action): RedirectResponse

@@ -84,88 +84,94 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         <!-- Product 1 -->
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
-                                        <img class="h-10 w-10 object-cover"
-                                            src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80"
-                                            alt="">
+                        @foreach ($products as $product)
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            <img class="h-10 w-10 object-cover"
+                                                src={{ $product->images()->first()->name }}
+                                                width="640" height="480">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">{{ $product->title }}</div>
+                                        </div>
                                     </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">Basic Planet Tee Black</div>
-                                        <div class="text-sm text-gray-500">SKU: TS-001</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {{ $product->price }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-500 truncate-2 max-w-xs">
+                                        {{ $product->description }}
                                     </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                $39.00
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="text-sm text-gray-500 truncate-2 max-w-xs">
-                                    The Basic Planet Tee is our signature everyday essential. Crafted from premium 100%
-                                    organic cotton for exceptional comfort and durability.
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                    Active
-                                </span>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex flex-wrap gap-1">
-                                    <span
-                                        class="size-tag inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800 border border-gray-300 cursor-pointer">S</span>
-                                    <span
-                                        class="size-tag inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800 border border-gray-300 cursor-pointer">M</span>
-                                    <span
-                                        class="size-tag inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800 border border-gray-300 cursor-pointer">L</span>
-                                    <span
-                                        class="size-tag inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800 border border-gray-300 cursor-pointer">XL</span>
-                                    <button
-                                        class="add-size inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-primary text-white hover:bg-gray-800 transition-colors">
-                                        <i class="fas fa-plus mr-1"></i> Add
-                                    </button>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex flex-wrap gap-2">
-                                    <div class="product-image-container relative">
-                                        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80"
-                                            alt="Product image" class="h-12 w-12 object-cover rounded">
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if ($product->status->value == 'active')
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            {{ $product->status }}
+                                        </span>
+                                    @else
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                            {{ $product->status }}
+                                        </span>
+                                    @endif
+                                    
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex flex-wrap gap-1">
+                                        @foreach ($product->sizes as $size)
+                                            <span 
+                                                class="size-tag inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800 border border-gray-300 cursor-pointer">
+                                                {{ $size->title }}
+                                            </span>    
+                                        @endforeach
                                         <button
-                                            class="remove-image absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center hidden hover:bg-red-600">
-                                            <i class="fas fa-times text-xs"></i>
+                                            class="add-size inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-primary text-white hover:bg-gray-800 transition-colors">
+                                            <i class="fas fa-plus mr-1"></i> Add
                                         </button>
                                     </div>
-                                    <div class="product-image-container relative">
-                                        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1015&q=80"
-                                            alt="Product image" class="h-12 w-12 object-cover rounded">
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex flex-wrap gap-2">
+                                        <div class="product-image-container relative">
+                                            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80"
+                                                alt="Product image" class="h-12 w-12 object-cover rounded">
+                                            <button
+                                                class="remove-image absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center hidden hover:bg-red-600">
+                                                <i class="fas fa-times text-xs"></i>
+                                            </button>
+                                        </div>
+                                        <div class="product-image-container relative">
+                                            <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1015&q=80"
+                                                alt="Product image" class="h-12 w-12 object-cover rounded">
+                                            <button
+                                                class="remove-image absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center hidden hover:bg-red-600">
+                                                <i class="fas fa-times text-xs"></i>
+                                            </button>
+                                        </div>
+                                        <div class="product-image-container relative">
+                                            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"
+                                                alt="Product image" class="h-12 w-12 object-cover rounded">
+                                            <button
+                                                class="remove-image absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center hidden hover:bg-red-600">
+                                                <i class="fas fa-times text-xs"></i>
+                                            </button>
+                                        </div>
                                         <button
-                                            class="remove-image absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center hidden hover:bg-red-600">
-                                            <i class="fas fa-times text-xs"></i>
+                                            class="add-image h-12 w-12 flex items-center justify-center border-2 border-dashed border-gray-300 rounded hover:border-primary transition-colors">
+                                            <i class="fas fa-plus text-gray-400 hover:text-primary"></i>
                                         </button>
                                     </div>
-                                    <div class="product-image-container relative">
-                                        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"
-                                            alt="Product image" class="h-12 w-12 object-cover rounded">
-                                        <button
-                                            class="remove-image absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center hidden hover:bg-red-600">
-                                            <i class="fas fa-times text-xs"></i>
-                                        </button>
-                                    </div>
-                                    <button
-                                        class="add-image h-12 w-12 flex items-center justify-center border-2 border-dashed border-gray-300 rounded hover:border-primary transition-colors">
-                                        <i class="fas fa-plus text-gray-400 hover:text-primary"></i>
-                                    </button>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="product-form.html" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
-                                <button class="text-red-600 hover:text-red-900">Delete</button>
-                            </td>
-                        </tr>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <a href="product-form.html" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
+                                    <button class="text-red-600 hover:text-red-900">Delete</button>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

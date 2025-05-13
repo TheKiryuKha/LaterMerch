@@ -21,11 +21,12 @@ final class DatabaseSeeder extends Seeder
 
         $products = Product::factory()->count(20)->create();
 
-        $products->each(function ($product) {
-            $product->images()->saveMany(
-                Image::factory(rand(1, 5))->create()
-            );
-        });
+        foreach($products as $product){
+            Image::factory()->count(rand(1, 5))
+                ->create([
+                    'product_id' => $product->id
+                ]);
+        }
 
         $products->each(function ($product) use ($sizes) {
             $random_sizes = $sizes->random(rand(1, Size::count()))
