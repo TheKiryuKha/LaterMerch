@@ -10,7 +10,6 @@ use App\Actions\EditProduct;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 final class ProductController

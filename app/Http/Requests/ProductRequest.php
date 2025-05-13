@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\DTO\ProductDTO;
+use App\Enums\ProductStatus;
 use Illuminate\Foundation\Http\FormRequest;
 
 final class ProductRequest extends FormRequest
@@ -48,6 +49,7 @@ final class ProductRequest extends FormRequest
         return new ProductDTO(
             title: (string) $validated['title'],
             price: (string) $validated['price'],
+            status: ProductStatus::Draft,
             description: (string) $validated['description'],
             images: $validated['images'],
             sizes: $validated['sizes'] ?? []

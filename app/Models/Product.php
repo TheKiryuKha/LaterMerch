@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\ProductStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,6 +14,10 @@ final class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
+
+    protected $casts = [
+        'status' => ProductStatus::class,
+    ];
 
     /**
      * *
@@ -24,7 +29,6 @@ final class Product extends Model
     }
 
     /**
-     *
      * @return BelongsToMany<Size, $this, \Illuminate\Database\Eloquent\Relations\Pivot>
      */
     public function sizes(): BelongsToMany

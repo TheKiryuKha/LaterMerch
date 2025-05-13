@@ -18,6 +18,7 @@ final class CreateProduct
             $product = Product::create([
                 'title' => $dto->title,
                 'price' => $dto->price,
+                'status' => $dto->status,
                 'description' => $dto->description,
             ]);
 

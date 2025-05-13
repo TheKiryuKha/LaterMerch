@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\ProductStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,8 +21,16 @@ final class ProductFactory extends Factory
     {
         return [
             'title' => fake()->words(2, true),
-            'price' => '12',
+            'price' => '$'.rand(100, 1000),
+            'status' => ProductStatus::Draft,
             'description' => fake()->text(),
         ];
+    }
+
+    public function active(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => ProductStatus::Active,
+        ]);
     }
 }

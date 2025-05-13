@@ -12,6 +12,7 @@ test('to array', function () {
     expect(array_keys($product->toArray()))->toBe([
         'id',
         'title',
+        'status',
         'price',
         'description',
         'created_at',
